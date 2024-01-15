@@ -48,7 +48,7 @@ export const createJobsSchema = z
     title: requiredString.max(100),
     type: requiredString.refine(
       (value) => jobTypes.includes(value),
-      " Invalid job type",
+      "Invalid job type",
     ),
     companyName: requiredString.max(100),
     companyLogo: companyLogoSchema,
