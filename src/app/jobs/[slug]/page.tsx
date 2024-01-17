@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { SubresourceIntegrityPlugin } from "next/dist/build/webpack/plugins/subresource-integrity-plugin";
 import { Metadata } from "next";
 import JobDetailsPage from "@/components/JobDetailsPage";
+import { Button } from "@/components/ui/button";
 
 type PageProps = {
   params: {
@@ -33,9 +34,27 @@ export async function generateMetadata({
 export default async function Page({ params: { slug } }: PageProps) {
   const job = await getJob(slug);
 
+  const { applicationEmail, applicationUrl } = job;
+
+  const applicationLink = applicationEmail
+    ? `mailto:${applicationEmail}`
+    : applicationUrl;
+
+  if (!applicationLink) {
+    console.error("Job has no application link or email");
+    notFound();
+  }
+
   return (
     <main className="m-auto my-10 flex max-w-5xl flex-col items-center gap-5 px-3 md:flex-row md:items-start">
       <JobDetailsPage job={job} />
+      <aside className="">
+        <Button asChild>
+          <a href={applicationLink} className="w-40 md:w-fit">
+            Apply Now!
+          </a>
+        </Button>
+      </aside>
     </main>
   );
 }
