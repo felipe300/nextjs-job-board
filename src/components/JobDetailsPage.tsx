@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Briefcase, MapPin, Globe2, Banknote } from "lucide-react";
 import { formatMoney } from "@/lib/utils";
+import Markdown from "./Markdown";
 
 type JobDetailsPageProps = {
   job: Job;
@@ -69,7 +70,7 @@ export default function JobDetailsPage({
           </div>
         </div>
       </div>
-      <div>{description}</div>
+      <div>{description && <Markdown>{description}</Markdown>}</div>
     </section>
   );
 }
