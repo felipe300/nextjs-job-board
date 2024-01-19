@@ -7,13 +7,10 @@ import { revalidatePath } from "next/cache";
 import { del } from "@vercel/blob";
 import { redirect } from "next/navigation";
 
-type FormState =
-  | {
-      error?: string;
-    }
-  | undefined;
+type FormState = { error?: string } | undefined;
 
 export async function approvedSubmission(
+  prevState: FormState,
   formData: FormData,
 ): Promise<FormState> {
   try {
@@ -40,7 +37,7 @@ export async function approvedSubmission(
   }
 }
 
-export async function deleteJob(formData: FormData) {
+export async function deleteJob(prevState: FormState, formData: FormData) {
   try {
     const jobId = parseInt(formData.get("jobId") as string);
     const user = await currentUser();
