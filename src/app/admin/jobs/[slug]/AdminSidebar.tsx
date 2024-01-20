@@ -47,7 +47,7 @@ function DeleteJobBtn({ jobId }: AdminButtonProps) {
   const [formState, formAction] = useFormState(deleteJob, undefined);
   return (
     <form action={formAction} className="space-y-1">
-      <input hidden name="jobId" value={jobId} />
+      <input hidden name="jobId" defaultValue={jobId} />
       <FormSubmitBtn className="w-full bg-red-500 hover:bg-red-600">
         Delete
       </FormSubmitBtn>
